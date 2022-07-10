@@ -81,19 +81,6 @@ app.get("/register", (req, res) => {
 
 app.post("/register", async (req, res) => {
     try{
-        console.log(req.body.cpassword);
-        console.log(req.body.password);
-        console.log(req.body.fname);
-        console.log(req.body.lname);
-        console.log(req.body.address1);
-        console.log(req.body.address2);
-        console.log(req.body.state);
-        console.log(req.body.zip);
-        console.log(req.body.city);
-        console.log(req.body.eaddress);
-        console.log(req.body.phone);
-        console.log(req.body.age);
-
         const UserRegister = new Register ({
             firstname   : req.body.fname,
             lastname    : req.body.lname,
@@ -118,6 +105,7 @@ app.post("/register", async (req, res) => {
         res.status(400).send(error);
     } 
 
+    res.redirect("/");
     // try{
     //     var password = req.body.password;
     //     var cpassword = req.body.cpassword;
