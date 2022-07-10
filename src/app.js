@@ -12,6 +12,7 @@ const Register = require("./models/registers");
 const async = require("hbs/lib/async");
 const cli = require("nodemon/lib/cli");
 
+
 //Setting up env port so we can host it and port changes dynamically depending on the enviorment
 const port = process.env.PORT || 3000
 
@@ -24,20 +25,55 @@ const partials_path = path.join(__dirname, "../templates/partials");
 
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
+
 app.use(express.static(static_path));
 app.set("view engine", "hbs");
 app.set("views", templates_path);
 hbs.registerPartials(partials_path);
 
+
+
 //Get Method to requests for root /
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
 
     //res.send("Hello From The Backend Side")
-    res.render("index")
+    res.render("index");
 })
 
-app.get("/register", (req, res) => {
+app.post("/", async (req, res) => {
+     
+    //res.send("Hello From The Backend Side")
+    try{
 
+
+    const {eaddress, password} = req.body;
+    const test = await Register.findOne({eaddress:eaddress});
+    if(test.password == password)
+    {
+        //res.json({"messeage": "User has logged in succesfully"});
+        res.render("user");
+    }
+    else{
+        res.json({"messeage": "invalid Credentials"});
+    }
+
+    console.log(test);
+
+
+    // const {eaddress, password} = req.body;
+    // console.log(eaddress);
+    // const test = await Register.findOne({eaddress:eaddress});
+    // console.log(test);
+    res.status(201);
+    }
+    catch(error){
+        console.log(error);
+    }
+
+})
+
+
+app.get("/register", (req, res) => {
     //res.send("Hello From The Backend Side")
     res.render("register")
     
@@ -45,18 +81,18 @@ app.get("/register", (req, res) => {
 
 app.post("/register", async (req, res) => {
     try{
-        // console.log(req.body.cpassword);
-        // console.log(req.body.password);
-        // console.log(req.body.fname);
-        // console.log(req.body.lname);
-        // console.log(req.body.address1);
-        // console.log(req.body.address2);
-        // console.log(req.body.state);
-        // console.log(req.body.zip);
-        // console.log(req.body.city);
-        // console.log(req.body.eaddress);
-        // console.log(req.body.phone);
-        // console.log(req.body.age);
+        console.log(req.body.cpassword);
+        console.log(req.body.password);
+        console.log(req.body.fname);
+        console.log(req.body.lname);
+        console.log(req.body.address1);
+        console.log(req.body.address2);
+        console.log(req.body.state);
+        console.log(req.body.zip);
+        console.log(req.body.city);
+        console.log(req.body.eaddress);
+        console.log(req.body.phone);
+        console.log(req.body.age);
 
         const UserRegister = new Register ({
             firstname   : req.body.fname,
@@ -73,6 +109,7 @@ app.post("/register", async (req, res) => {
             cpassword   : req.body.cpassword,
         })
         const result = await UserRegister.save();
+
 
         //console.log(`A document was inserted with the _id: ${result.insertedId}`);
 
@@ -99,6 +136,8 @@ app.post("/register", async (req, res) => {
     //     console.log("");
     // } 
 })
+
+
 
 app.listen(port, () => {
 
