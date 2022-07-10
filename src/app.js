@@ -99,13 +99,14 @@ app.post("/register", async (req, res) => {
 
 
         //console.log(`A document was inserted with the _id: ${result.insertedId}`);
-
-       res.status(201).render(index);
+       res.status(201);
+       res.writeHead(301, {"Location": "/"});
+       return res.end();  
     } catch(error){
         res.status(400).send(error);
     } 
 
-    res.redirect("/");
+
     // try{
     //     var password = req.body.password;
     //     var cpassword = req.body.cpassword;
