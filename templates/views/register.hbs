@@ -44,7 +44,7 @@
       box-shadow: 0 0 8px  #669999; 
       }
       .banner {
-      position: relative;
+      position: static;
       height: 300px;
       background-image: url("/uploads/media/default/0001/02/c1504011491c4e04e5158b63a27a4ea654b03ed1.jpeg");  
       background-size: cover;
@@ -87,6 +87,7 @@
       .item {
       position: relative;
       margin: 10px 0;
+      required: true;
       }
       .item span {
       color: red;
@@ -200,6 +201,8 @@
     </style>
   </head>
   <body>
+     {{>repeatedcode}}
+     <div>
     <div class="testbox">
       <form action="/register" method="POST">
       <div class="banner">
@@ -220,7 +223,7 @@
           </div>
           <div class="item">
             <label for="address2">Address 2<span>*</span></label>
-            <input id="address2" type="text" name="address2">
+            <input id="address2" type="text" required="false" name="address2">
           </div>
           <div class="item">
             <label for="state">State<span>*</span></label>
@@ -240,15 +243,15 @@
           </div>
           <div class="item">
             <label for="password">Password<span>*</span></label>
-            <input id="password" type="text"   name="password">
+            <input id="password" type="password"   name="password">
           </div>
           <div class="item">
             <label for="cpassword">Confirm Password<span>*</span></label>
-            <input id="cpassword" type="text"   name="cpassword">
+            <input id="cpassword" type="password"   name="cpassword">
           </div>
           <div class="item">
             <label for="phone">Phone<span>*</span></label>
-            <input id="phone" type="tel"   name="phone">
+            <input id="phone" type="tel"  name="phone">
           </div>
           <div class="item">
             <label for="age">Age<span>*</span></label>
@@ -276,16 +279,13 @@
         <input type="checkbox" name="checkbox1">
         <label>You consent to receive communications from us electronically. We will communicate with you by e-mail or phone. You agree that all agreements, notices, disclosures and other communications that we provide to you electronically satisfy any legal requirement that such communications be in writing.</label>
         <div class="btn-block">
-          <a href="/"><button type="submit" value="register" onclick="onSubmitHandler()">Submit</button></a>
+          <a href="/"><button type="submit" value="register">Submit</button></a>
         </div>
       </form>
     </div>
+     </div>
   </body>
 </html>
 
 <script>
-async function onSubmitHandler = (e) => {
-e.preventDefault();
-this.props.history.push('/')
-}
 </script>

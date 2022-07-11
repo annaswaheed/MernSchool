@@ -40,6 +40,20 @@ app.get("/", async (req, res) => {
     res.render("index");
 })
 
+app.get("/home", async (req, res) => {
+
+    //res.send("Hello From The Backend Side")
+    res.render("home");
+})
+
+app.get("/aboutus", async (req, res) => {
+
+    //res.send("Hello From The Backend Side")
+    res.render("aboutus");
+})
+
+
+
 app.post("/", async (req, res) => {
      
     //res.send("Hello From The Backend Side")
@@ -51,7 +65,7 @@ app.post("/", async (req, res) => {
     if(test.password == password)
     {
         //res.json({"messeage": "User has logged in succesfully"});
-        res.render("user");
+        res.render("user", {test:test});
     }
     else{
         res.json({"messeage": "invalid Credentials"});
