@@ -1,13 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <h1> Welcome {{test.firstname}} {{test.lastname}} </h1>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 <body>
+     {{>usernav}}
+     <div style="padding-top: 80px;">
+      <h1>Welcome, <br/></h1>
+      <h1 id="name"></h1>
+      <button type="button" onclick="location.href='/addp';">Add Property</button>
+
+      <table class="table table-striped">
+          <thead class="thead-dark table-Default">
+          <tr class="bg-info">
+              <th scope="col">House Name</th>
+              <th scope="col">Address</th>
+              <th scope="col">Pictures</th>
+              <th scope="col">Videos</th>
+              <th scope="col">Cost</th>
+          </tr>
+          </thead>
+        <tbody id="myTable">
+        </tbody>
+
+      </table>
+
+     </div>
+
+<script>
+  var UserJson = {{{test}}}
+
+  document.getElementById('name').innerHTML = UserJson.firstname + ", " + UserJson.lastname;
+
+	var housetry = UserJson.House;
+
+
+	buildTable(housetry)
+
+
+
+	function buildTable(data){
+		var table = document.getElementById('myTable')
+
+		for (var i = 0; i < data.length; i++){
+			var row = `<tr>
+							<td>${data[i].name}</td>
+							<td>${data[i].address}</td>
+							<td>${data[i].picture}</td>
+              <td>${data[i].video}</td>
+					  </tr>`
+			table.innerHTML += row
+
+		}
     
+	}
+</script>
 </body>
 </html>

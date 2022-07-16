@@ -1,3 +1,4 @@
+const { json } = require("express/lib/response");
 const mongoose = require("mongoose");
 
 const clientSchema = new mongoose.Schema({
@@ -50,6 +51,16 @@ const clientSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    House: 
+    [
+        {
+            name:String,
+            address:String,
+            picture:String,
+            video:String,
+            cost:String
+        }
+    ]
 })
 
 const Register = new mongoose.model("userRegister", clientSchema);
