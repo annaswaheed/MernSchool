@@ -55,10 +55,25 @@ const clientSchema = new mongoose.Schema({
     [
         {
             name:String,
+            city:String,
+            zip:String,
+            state:String,
             address:String,
             picture:String,
             video:String,
-            cost:String
+            cost:String,
+            description:String
+        }
+    ],
+    family: 
+    [
+        {
+            firstn:String,
+            lastn:String,
+            email:String,
+            password:String,
+            phone:String,
+            relation:String,
         }
     ]
 })

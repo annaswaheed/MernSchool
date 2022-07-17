@@ -83,8 +83,6 @@ app.get("/user", async (req, res) => {
     res.render("user", { test: JSON.stringify(test)});
 })
 
-
-
 app.get("/home", async (req, res) => {
 
     //res.send("Hello From The Backend Side")
@@ -96,9 +94,6 @@ app.get("/aboutus", async (req, res) => {
     //res.send("Hello From The Backend Side")
     res.render("aboutus");
 })
-
-
-
 
 app.get("/register", (req, res) => {
     //res.send("Hello From The Backend Side")
@@ -134,7 +129,6 @@ app.post("/register", async (req, res) => {
     }
 })
 
-
 app.get("/addp", (req, res) => {
     //res.send("Hello From The Backend Side")
     res.render("addproperty");
@@ -159,6 +153,9 @@ app.post("/addp", async (req, res) => {
         address : req.body.address,
         picture : req.body.picture,
         video : req.body.video,
+        cost : req.body.cost,
+        city : req.body.city,
+        state : req.body.state
     };
 
     //adding properties into database
@@ -184,6 +181,145 @@ app.get("/logout", (req, res) => {
     res.render("index");
     
 })
+
+app.get("/family", (req, res) => {
+    //res.send("Hello From The Backend Side")
+    res.render("family");
+    
+})
+
+app.post("/family", async (req, res) => {
+    //res.send("Hello From The Backend Side")
+    console.log(req.body.name)
+    console.log(req.body.address)
+    console.log(req.body.picture)
+    console.log(req.body.video)
+
+    // name:String,
+    // address:String,
+    // Picture:String,
+    // Video:String
+
+   
+    var newhouse = {
+        name : req.body.name,
+        address : req.body.address,
+        picture : req.body.picture,
+        video : req.body.video,
+        cost : req.body.cost,
+        city : req.body.city,
+        state : req.body.state
+    };
+
+    //adding properties into database
+    const rcheck = await Register.updateOne(
+        { eaddress: user.eaddress }, 
+        { $addToSet: { House: newhouse } }
+    );
+    
+    //updating user obj
+    user = await Register.findOne({eaddress:user.eaddress});
+    
+    console.log("After the Update")
+    console.log(user)
+    //user is global, storing the user object
+    //{{reference to html tag:variable being passed}}
+    res.redirect('/user');
+})
+
+
+app.get("/profile", (req, res) => {
+    //res.send("Hello From The Backend Side")
+    res.render("profile");
+    
+})
+
+app.post("/profile", async (req, res) => {
+    //res.send("Hello From The Backend Side")
+    console.log(req.body.name)
+    console.log(req.body.address)
+    console.log(req.body.picture)
+    console.log(req.body.video)
+
+    // name:String,
+    // address:String,
+    // Picture:String,
+    // Video:String
+
+   
+    var newhouse = {
+        name : req.body.name,
+        address : req.body.address,
+        picture : req.body.picture,
+        video : req.body.video,
+        cost : req.body.cost,
+        city : req.body.city,
+        state : req.body.state
+    };
+
+    //adding properties into database
+    const rcheck = await Register.updateOne(
+        { eaddress: user.eaddress }, 
+        { $addToSet: { House: newhouse } }
+    );
+    
+    //updating user obj
+    user = await Register.findOne({eaddress:user.eaddress});
+    
+    console.log("After the Update")
+    console.log(user)
+    //user is global, storing the user object
+    //{{reference to html tag:variable being passed}}
+    res.redirect('/user');
+})
+
+app.get("/afam", (req, res) => {
+    //res.send("Hello From The Backend Side")
+    res.render("afam");
+    
+})
+
+app.post("/afam", async (req, res) => {
+    //res.send("Hello From The Backend Side")
+    console.log(req.body.name)
+    console.log(req.body.address)
+    console.log(req.body.picture)
+    console.log(req.body.video)
+
+    // name:String,
+    // address:String,
+    // Picture:String,
+    // Video:String
+
+   
+    var newhouse = {
+        name : req.body.name,
+        address : req.body.address,
+        picture : req.body.picture,
+        video : req.body.video,
+        cost : req.body.cost,
+        city : req.body.city,
+        state : req.body.state
+    };
+
+    //adding properties into database
+    const rcheck = await Register.updateOne(
+        { eaddress: user.eaddress }, 
+        { $addToSet: { House: newhouse } }
+    );
+    
+    //updating user obj
+    user = await Register.findOne({eaddress:user.eaddress});
+    
+    console.log("After the Update")
+    console.log(user)
+    //user is global, storing the user object
+    //{{reference to html tag:variable being passed}}
+    res.redirect('/user');
+})
+
+
+
 
 app.listen(port, () => {
 

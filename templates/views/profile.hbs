@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Profile</title>
+
+</head>
+
+<body>
+    {{>usernav}}
+    <div class="container p-5 mt-3">
+        <div class="row">
+            <div class="col-md-2 p-3 me-5">
+                <div class="d-flex flex-column align-items-center mt-3 py-4"><img class="rounded-circle mt-3 text-whte" width="150px" src="https://cdn-icons-png.flaticon.com/512/482/482636.png">
+                  <h1 class="text-primary display-6 text-center p-3 pf-4">Community Member</h1>
+                </div>
+            </div>
+            <div class="col-md-5 shadow-sm p-3 mb-5 bg-body rounded py-3 pe-2">
+                <div class="p-4 py-6 bg-white pt-2 ">
+                    <div class="d-flex mb-3">
+                    </div>
+                    <div class="mb-4">
+                        <h6 class="text-primary display-6">Profile</h6>
+                        <hr>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first and last name" id="nameInput"></div>
+                        <div class="col-md-12 p-2"><label class="labels">Email</label><input type="text" class="form-control" placeholder="enter email" id="emailInput"></div>
+                        <div class="col-md-12 p-2"><label class="labels">Mobile Number</label><input type="tel" class="form-control" placeholder="enter phone number" id="numberInput"></div>
+                        <div class="col-md-12 p-2"><label class="labels">Address </label><input type="text" class="form-control" placeholder="enter address" id="addressInput"></div>
+                        <div class="col-md-12 p-2"><label class="labels">Date of Birth</label><input type="date" class="form-control" placeholder="Date of Birth" id="dobInput"></div>
+                        <div class="col-md-12 p-2"><label class="labels">Password</label><input type="password" class="form-control" placeholder="password" id="passwordInput"></div>
+                    </div>
+                    <div class="mt-4 text-center"><button onclick="update()" class="btn btn-primary profile-button" type="button">Update Profile</button></div>
+                </div>
+            </div>
+            <div class="col-md-4 shadow-sm p-2 mb-5 bg-body rounded pt-3">
+                <div class="p-3 py-4 bg-white">
+                    <div class="d-flex justify-content-center display-6 text-primary"><span>Registration Checklist</span></div><br>
+                    <h6 class="text-muted fw-normal pb-3 text-center ">Reivew checklist below to ensure you have completed the registration process.</h6>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="checkBox1" checked>
+                        <label class="form-check-label" for="checkBox1">
+                          Signed up for an account
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="checkBox2">
+                        <label class="form-check-label" for="checkBox2">
+                          Paid initial community deposit
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="checkBox3">
+                        <label class="form-check-label" for="checkBox3">
+                         Completed User profile
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="checkBox4">
+                        <label class="form-check-label" for="checkBox4">
+                          Confirmed email
+                        </label>
+                    </div>
+                </div>
+                <div class="p-3 py-3 mt-3 mb-3 bg-white">
+                    <div class="d-flex justify-content-center display-6 text-primary"><span></span>Orientation Date</span></div><br>
+                    <h6 class="text-muted fw-normal pb-3 text-center ">Select a date for the new resident orientation meeting, if you have not already.</h6>
+                    <select class="form-select" aria-label="Default select example" id="selectDropBox">
+                        <option selected>Available dates</option>                        
+                        <option value="1">Tuesday, April 26</option>
+                        <option value="2">Monday, May 2</option>
+                        <option value="3">Friday, May 13 </option>
+                      </select>
+                    <div class="d-grid col-4 mx-auto mt-4">
+                        <button class="btn btn-outline-primary" id="confirmB" type="submit" value="Submit">Confirm</button>
+                        <button class="btn btn-outline-danger my-2" id="cancelB" type="submit" value="Submit"  style=" visibility: hidden;">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container px-5">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+                <div class="col-md-4 d-flex align-items-center">
+                    <a href="/" class="mb-3 me-2 mb-md-0 text-muted  text-decoration-none lh-1">
+                        <!-- <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg> -->
+                    </a>
+                    <span class="text-muted text-primary">© 2022 MYRLE, Inc</span>
+                </div>
+
+                <ul class="nav col-md-4 justify-content-end list-unstyled d-flex py-1 px-1">
+                    <!-- <li class="ms-3"><a class="text-muted " href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
+            <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
+            <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li> -->
+                    <a href="https://twitter.com/" target="_blank"><i class="fa fa-twitter fa-2x text-primary px-2" aria-hidden="true"></i></a>
+                    <a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram fa-2x text-primary px-2" aria-hidden="true"></i></a>
+                    <a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook-official fa-2x text-primary px-2" aria-hidden="true"></i></a>
+                </ul>
+            </footer>
+        </div>
+    </div>
+
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    -->
+    <script src="https://kit.fontawesome.com/cbcf69c3b6.js" crossorigin="anonymous"></script>
+
+
+
+    <script>
+        async function check(){
+          const response = await fetch('/user/data');
+          const myJson = await response.json();
+          if(myJson.status === 401)
+            window.location.href = "../";
+          var data = myJson.response
+          document.getElementById('nameInput').value = data.name
+          document.getElementById('emailInput').value = data.email
+          document.getElementById('dobInput').value = data.DOB
+          document.getElementById('passwordInput').value= data.password
+          if(document.getElementById('numberInput').value !== undefined)
+            document.getElementById('numberInput').value = data.number
+          if(document.getElementById('addressInput').value !== undefined)
+            document.getElementById('addressInput').value = data.address
+        }
+        check();
+
+        async function update(){
+            var user ={
+                "name":document.getElementById("nameInput").value,
+                "email":document.getElementById("emailInput").value,
+                "dob":document.getElementById("dobInput").value,
+                "password":document.getElementById("passwordInput").value,
+                "number":document.getElementById('numberInput').value,
+                "address":document.getElementById('addressInput').value
+            }
+            const response = await fetch('/user/update', {
+                method: 'PUT',
+                headers:{          
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            });
+            const myJson = await response.json();
+            if(myJson.status === 200)
+                location.reload();
+
+            //document.getElementById("checkBox3").checked=true;
+            //document.getElementById("checkBox3").disabled=true;
+        }
+
+
+        async function logout(){
+        const response = await fetch('/user/logout');
+        window.location.href = "../";
+      }
+
+
+      document.getElementById("confirmB").addEventListener("click", function(){
+        document.getElementById("confirmB").disabled = true;
+        document.getElementById("selectDropBox").disabled=true;
+        document.getElementById("cancelB").style.visibility="visible";
+
+      })
+      document.getElementById("cancelB").addEventListener("click", function(){
+        document.getElementById("confirmB").disabled = false;
+        document.getElementById("selectDropBox").disabled=false;
+        document.getElementById("cancelB").style.visibility="hidden";
+
+      })
+
+
+      
+      
+
+
+
+    </script>
+</body>
+
+</html>

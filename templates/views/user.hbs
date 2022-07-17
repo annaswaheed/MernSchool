@@ -12,8 +12,18 @@
      <div style="padding-top: 80px;">
       <h1>Welcome, <br/></h1>
       <h1 id="name"></h1>
-      <button type="button" onclick="location.href='/addp';">Add Property</button>
+      
 
+      <div class="row">
+        <div class="col">
+          <div class="card card-body">
+            <button type="button" onclick="location.href='/addp';">Add Property</button>
+            <br>
+            <label for="name"><i class="fa-solid fa-magnifying-glass"></i> </label> 
+            <input placeholder="Filter Property By Name" id="search" type="text" class="form-control">
+          </div>
+        </div>
+      </div>
       <table class="table table-striped">
           <thead class="thead-dark table-Default">
           <tr class="bg-info">
@@ -31,27 +41,57 @@
 
      </div>
 
-<script>
+<script type="text/javascript">
   var UserJson = {{{test}}}
 
   document.getElementById('name').innerHTML = UserJson.firstname + ", " + UserJson.lastname;
 
-	var housetry = UserJson.House;
+	var houseAr = UserJson.House;
 
 
-	buildTable(housetry)
+  $('#search').on('keyup', function(){
+    var value = $(this).val();
+    console.log('Value:', value);
+    var data = searchdata(value, houseAr)
+    buildTable(data)
+  })
+
+  
 
 
+	buildTable(houseAr)
+
+  function searchdata(value, data){
+    var filterdata = []
+
+    for(var i =0; i < data.length; i++){
+      value = value.toLowerCase();
+      var name = data[i].name.toLowerCase();
+      if(name.includes(value)){
+        filterdata.push(data[i])
+      }
+    }
+
+
+    return filterdata;
+  }
 
 	function buildTable(data){
 		var table = document.getElementById('myTable')
+    
+    table.innerHTML = ''
 
 		for (var i = 0; i < data.length; i++){
-			var row = `<tr>
+
+			if(data[i].cost == null || data[i].cost == undefined){
+        data[i].cost = "";
+      }
+      var row = `<tr>
 							<td>${data[i].name}</td>
 							<td>${data[i].address}</td>
 							<td>${data[i].picture}</td>
               <td>${data[i].video}</td>
+              <td>${data[i].cost}</td>
 					  </tr>`
 			table.innerHTML += row
 
