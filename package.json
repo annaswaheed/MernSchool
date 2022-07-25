@@ -9,7 +9,7 @@
     "start": "node src/app.js"
   },
   "keywords": [],
-  "author": "Siddi Annas Waheed",
+  "author": "Team Project. Team Lead: Siddi Annas Waheed. Team Members: Salman Barry, Eleonora Dimitrova, Lisa Garcia, Max Gower.",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.0",
