@@ -9,6 +9,8 @@ const path = require("path");
 const app = express();
 const hbs = require("hbs");
 const { default: mongoose } = require("mongoose");
+
+console.log("connection function call")
 //calling functions from conn.js to connect to DB
 require("./db/conn");
 const Register = require("./models/registers");
@@ -79,9 +81,24 @@ app.post("/", async (req, res) => {
 
 app.get("/user", async (req, res) => {
 
-    var test = user;
+    var test = await user;
     res.render("user", { test: JSON.stringify(test)});
 })
+
+app.post("/user",  async (req, res) => {
+
+    var id = req.body.id;
+
+    console.log("hello")
+    var results = await Register.updateOne({eaddress:user.eaddress},{$pull: {House : {_id: id}}});
+    console.log(results);
+    console.log("done removing")
+    //res.writeHead(301, {"Location": "/"});
+})
+
+
+
+
 
 app.get("/home", async (req, res) => {
 
@@ -155,7 +172,8 @@ app.post("/addp", async (req, res) => {
         video : req.body.video,
         cost : req.body.cost,
         city : req.body.city,
-        state : req.body.state
+        state : req.body.state,
+        description : req.body.description
     };
 
     //adding properties into database

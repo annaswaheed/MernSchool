@@ -1,3 +1,14 @@
+<style>
+	.hidden{
+        display:none;
+    }
+
+    .result{
+    	max-width:80px; 
+    }
+
+</style>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,9 +40,13 @@
           <tr class="bg-info">
               <th scope="col">House Name</th>
               <th scope="col">Address</th>
+              <th scope="col">City</th>
+              <th scope="col">State</th>
               <th scope="col">Pictures</th>
               <th scope="col">Videos</th>
               <th scope="col">Cost</th>
+              <th scope="col">description</th>
+              <th scope="col">Options</th>
           </tr>
           </thead>
         <tbody id="myTable">
@@ -48,7 +63,7 @@
 
 	var houseAr = UserJson.House;
 
-
+  var len = 0;
   $('#search').on('keyup', function(){
     var value = $(this).val();
     console.log('Value:', value);
@@ -80,24 +95,71 @@
 		var table = document.getElementById('myTable')
     
     table.innerHTML = ''
-
-		for (var i = 0; i < data.length; i++){
+    len = data.length;
+		for (var i = 0; i < data.length; i++)
+    {
 
 			if(data[i].cost == null || data[i].cost == undefined){
         data[i].cost = "";
       }
+      if(data[i].description == null || data[i].description == undefined){
+        data[i].description = "";
+      }
+      if(data[i].city == null || data[i].city == undefined){
+        data[i].city = "N/A";
+      }
+      if(data[i].state == null || data[i].state == undefined){
+        data[i].state = "N/A";
+      }
       var row = `<tr>
 							<td>${data[i].name}</td>
 							<td>${data[i].address}</td>
+              <td>${data[i].city}</td>
+              <td>${data[i].state}</td>
 							<td>${data[i].picture}</td>
               <td>${data[i].video}</td>
               <td>${data[i].cost}</td>
+              <td>${data[i].description}</td>
+              <td>
+              <button class="btn btn-sm btn-danger" data-testid="${data[i]._id}" id="delete-${data[i]._id}">Delete</button>
+              </td>
 					  </tr>`
 			table.innerHTML += row
+		}  
+  }
 
-		}
-    
-	}
+
+  for (var i = 0; i < houseAr.length; i++){
+  $(`#delete-${houseAr[i]._id}`).on('click', deleteTest)
+  }
+
+
+
+
+	function deleteTest(){
+		var testid = $(this).data('testid')
+    console.log(testid)
+    var txt;
+    var r = confirm("Are you sure you want to DELETE this?");
+    if (r === true) {
+      txt = "Yes";
+      
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/user", true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+            id: testid
+        }));
+        alert("You can only delete one property at a time for your account security log back in.");
+        window.location.replace("/");
+
+
+
+    } else {
+      txt = "NO!";
+    }
+      }
+
 </script>
 </body>
 </html>
