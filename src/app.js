@@ -3,7 +3,7 @@ const express = require("express");
 
 
 global.user ="";
-
+var alert = require('alert');
 const path = require("path");
 //Init an instance of EJS
 const app = express();
@@ -47,36 +47,45 @@ app.get("/", async (req, res) => {
 
 
 app.post("/", async (req, res) => {
-     
+    const {eaddress, password} = req.body;
+    var pword = req.body.password;
     //res.send("Hello From The Backend Side")
     try{
-    const {eaddress, password} = req.body;
-    const test = await Register.findOne({eaddress:eaddress});
-    if(test.password == password)
-    {
-        //res.json({"messeage": "User has logged in succesfully"});
-        user = test;
-        //res.render("user", { test: JSON.stringify(test)});
-        res.redirect('/user');
-    }
-    else{
-        res.json({"messeage": "invalid Credentials"});
-    }
+        const test = await Register.findOne(
+            {
+              $or: [
+                     {eaddress:eaddress},
+                     {family:{$elemMatch:{email:eaddress}}}
+                   ]
+            }
+         );
 
-    
-    console.log(test);
+        
+        var flag =0;
+        for(var i = 0; i < test.family.length; i++){
+            if(test.password == pword || test.family[i].password == pword)
+            {
+                //res.json({"messeage": "User has logged in succesfully"});
+                user = test;
+                //res.render("user", { test: JSON.stringify(test)});
+                flag=0;
+                res.redirect('/user');
 
-
-    // const {eaddress, password} = req.body;
-    // console.log(eaddress);
-    // const test = await Register.findOne({eaddress:eaddress});
-    // console.log(test);
-    res.status(201);
+            }
+            else{
+                flag=2;
+            }
+        }
+        if(flag == 2){
+            alert('invalid Credentials') 
+        }
+        
     }
     catch(error){
-        console.log(error);
+        //const test = await Register.findOne({family:{$elemMatch:{email:eaddress}}});
+        console.log(error)
+        alert("Wrong Credentials") ;
     }
-
 })
 
 app.get("/user", async (req, res) => {
@@ -95,10 +104,6 @@ app.post("/user",  async (req, res) => {
     console.log("done removing")
     //res.writeHead(301, {"Location": "/"});
 })
-
-
-
-
 
 app.get("/home", async (req, res) => {
 
@@ -325,8 +330,6 @@ app.post("/afam", async (req, res) => {
     //{{reference to html tag:variable being passed}}
     res.redirect('/user');
 })
-
-
 
 
 app.listen(port, () => {
