@@ -200,9 +200,10 @@ app.get("/logout", (req, res) => {
     
 })
 
-app.get("/family", (req, res) => {
+app.get("/family", async (req, res) => {
     //res.send("Hello From The Backend Side")
-    res.render("family");
+    var test = await user;
+    res.render("family", { test: JSON.stringify(test)});
     
 })
 
@@ -299,31 +300,20 @@ app.get("/afam", (req, res) => {
 
 app.post("/afam", async (req, res) => {
     //res.send("Hello From The Backend Side")
-    console.log(req.body.name)
-    console.log(req.body.address)
-    console.log(req.body.picture)
-    console.log(req.body.video)
 
-    // name:String,
-    // address:String,
-    // Picture:String,
-    // Video:String
-
-   
-    var newhouse = {
-        name : req.body.name,
-        address : req.body.address,
-        picture : req.body.picture,
-        video : req.body.video,
-        cost : req.body.cost,
-        city : req.body.city,
-        state : req.body.state
+    var newfamily = {
+        firstn : req.body.firstn,
+        lastn : req.body.lastn,
+        email : req.body.email,
+        password : req.body.password,
+        phone : req.body.phone,
+        relation : req.body.relation,
     };
 
     //adding properties into database
     const rcheck = await Register.updateOne(
         { eaddress: user.eaddress }, 
-        { $addToSet: { House: newhouse } }
+        { $addToSet: { family: newfamily } }
     );
     
     //updating user obj

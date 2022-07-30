@@ -272,37 +272,44 @@
     {{>usernav}}
     <div class="pt-1">
         <div class="testbox">
-            <form action="/addp" method="POST">
+            <form action="/afam" method="POST">
                 <div class="banner ">
-                <img src="https://i.ibb.co/3F1M2W6/boy-1300621.png" alt="boy-1300621" border="0" width="200" height="200">         
+                    <img src="https://i.ibb.co/3F1M2W6/boy-1300621.png" alt="boy-1300621" border="0" width="200"
+                        height="200">
                 </div>
                 <div class="row">
                     <div class="item col">
-                        <label for="name">First Name</label>
-                        <input id="fname" type="text" name="name">
+                        <label for="firstn">First Name</label>
+                        <input id="firstn" type="text" name="firstn">
                     </div>
                     <div class="item col">
-                        <label for="address">Last Name</label>
-                        <input id="lname" type="text" name="address">
+                        <label for="lastn">Last Name</label>
+                        <input id="lastn" type="text" name="lastn">
                     </div>
                 </div>
                 <br>
                 <div class="row">
                     <div class="item col">
-                        <label for="city">Phone</label>
-                        <input id="city" type="text" name="city">
+                        <label for="phone">Phone</label>
+                        <input id="phone" type="tel" name="phone">
                     </div>
                     <div class="item col">
-                        <label for="state">Email</label>
-                        <input id="state" type="text" name="state">
+                        <label for="email">Email</label>
+                        <input id="email" type="text" name="email">
                     </div>
                 </div>
-                <div class="item">
-                    <label for="cost">Relation</label>
-                    <input id="cost" type="text" name="cost">
+                <div class="row">
+                    <div class="item col">
+                        <label for="password">Password</label>
+                        <input id="password" type="text" name="password">
+                    </div>
+                <div class="item col">
+                    <label for="relation">Relation</label>
+                    <input id="relation" type="text" name="relation">
+                </div>
                 </div>
                 <div class="btn-block">
-                    <a href="/user"><button type="submit" value="addp">Submit</button></a>
+                    <a href="/user"><button type="submit" value="afam">Submit</button></a>
                 </div>
             </form>
         </div>

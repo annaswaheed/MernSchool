@@ -22,13 +22,16 @@
           </div>
         </div>
       </div>
+      
       <table class="table table-striped">
           <thead class="thead-dark table-Default">
           <tr class="bg-info">
-              <th scope="col">Name</th>
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
               <th scope="col">Email</th>
-              <th scope="col">Relation</th>
+              <th scope="col">Password</th>
               <th scope="col">Phone</th>
+              <th scope="col">Relation</th>
           </tr>
           </thead>
         <tbody id="myTable">
@@ -39,17 +42,12 @@
      </div>
 
 <script type = "text/javascript" >
-    var UserJson = {
-        {
-            {
-                test
-            }
-        }
-    }
 
-document.getElementById('name').innerHTML = UserJson.firstname + ", " + UserJson.lastname;
+var UserJson = {{{test}}}
 
-var houseAr = UserJson.House;
+//document.getElementById('name').innerHTML = UserJson.firstname + ", " + UserJson.lastname;
+
+var famAr = UserJson.family;
 
 
 $('#search').on('keyup', function () {
@@ -62,7 +60,7 @@ $('#search').on('keyup', function () {
 
 
 
-buildTable(houseAr)
+buildTable(famAr)
 
 function searchdata(value, data) {
     var filterdata = []
@@ -90,11 +88,12 @@ function buildTable(data) {
             data[i].cost = "";
         }
         var row = `<tr>
-                <td>${data[i].name}</td>
-                <td>${data[i].address}</td>
-                <td>${data[i].picture}</td>
-                <td>${data[i].video}</td>
-                <td>${data[i].cost}</td>
+                <td>${data[i].firstn}</td>
+                <td>${data[i].lastn}</td>
+                <td>${data[i].email}</td>
+                <td>${data[i].password}</td>
+                <td>${data[i].phone}</td>
+                <td>${data[i].relation}</td>
                 </tr>`
         table.innerHTML += row
 
