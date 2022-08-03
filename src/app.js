@@ -379,7 +379,7 @@ async function sendmail(){
     from: 'noreply@sunnysideapp.com', // sender address
     to: reg.eaddress,
     //reg.eaddress, // list of receivers
-    subject: "Hello" + reg.lastname, // Subject line
+    subject: "Hello, " + reg.lastname, // Subject line
     text: "Below is your username and password\n" + reg.eaddress +"\n" + reg.password +"\n", // plain text body
     html: content, // html body
   });
