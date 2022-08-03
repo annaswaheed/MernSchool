@@ -1,6 +1,7 @@
 //Importing EJS
 const express = require("express");
 
+global.reg ="";
 
 global.user ="";
 var alert = require('alert');
@@ -17,6 +18,7 @@ const Register = require("./models/registers");
 const async = require("hbs/lib/async");
 const cli = require("nodemon/lib/cli");
 
+const nodemailer = require("nodemailer");
 
 //Setting up env port so we can host it and port changes dynamically depending on the enviorment
 const port = process.env.PORT || 3000
@@ -40,13 +42,14 @@ hbs.registerPartials(partials_path);
 
 //Get Method to requests for root /
 app.get("/", async (req, res) => {
-
+   
     //res.send("Hello From The Backend Side")
     res.render("index");
 })
 
 
 app.post("/", async (req, res) => {
+    
     const {eaddress, password} = req.body;
     var pword = req.body.password;
     //res.send("Hello From The Backend Side")
@@ -139,9 +142,25 @@ app.post("/register", async (req, res) => {
             password    : req.body.password,
             cpassword   : req.body.cpassword,
         })
+
+        const emailing = {
+            firstname   : req.body.fname,
+            lastname    : req.body.lname,
+            address1    : req.body.address1,
+            address2    : req.body.address2,
+            state       : req.body.state,
+            zip         : req.body.zip,
+            city        : req.body.city,
+            eaddress    : req.body.eaddress,
+            phone       : req.body.phone,
+            gender      : req.body.gender,
+            password    : req.body.password,
+            cpassword   : req.body.cpassword,
+        }
         const result = await UserRegister.save();
 
-
+        reg = emailing;
+        await sendmail();
         //console.log(`A document was inserted with the _id: ${result.insertedId}`);
        res.status(201);
        res.writeHead(301, {"Location": "/"});
@@ -336,3 +355,40 @@ app.listen(port, () => {
 
     console.log(`server is running at port no ${port}`);
 })
+
+
+async function sendmail(){
+  //let testAccount = await nodemailer.createTestAccount();
+    console.log("function called");
+  // create reusable transporter object using the default SMTP transport
+  let transporter = nodemailer.createTransport({
+    host: "smtp-relay.sendinblue.com",
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: "annaswaheed@gmail.com", // generated ethereal user
+      pass: "wQ2YSxC6dO1tMkjT", // generated ethereal password
+    },
+  });
+
+ 
+  var content = "<b>Welcome To SunnySide <br > Below is your username and password </b> <br> <p> email:" + reg.eaddress + " <br> password:" + reg.password+" <br> thank you for choosing us!</p>" ;
+
+  // send mail with defined transport object
+  let info = await transporter.sendMail({
+    from: 'noreply@sunnysideapp.com', // sender address
+    to: "annaswaheed@gmail.com",
+    //reg.eaddress, // list of receivers
+    subject: "Hello" + reg.lastname, // Subject line
+    text: "Below is your username and password\n" + reg.eaddress +"\n" + reg.password +"\n", // plain text body
+    html: content, // html body
+  });
+
+  alert('Credentials Sent to the email address') 
+  console.log("Message sent: %s", info.messageId);
+  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+  // Preview only available when sending through an Ethereal account
+  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+  // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+}
