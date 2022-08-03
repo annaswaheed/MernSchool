@@ -377,7 +377,7 @@ async function sendmail(){
   // send mail with defined transport object
   let info = await transporter.sendMail({
     from: 'noreply@sunnysideapp.com', // sender address
-    to: "annaswaheed@gmail.com",
+    to: reg.eaddress,
     //reg.eaddress, // list of receivers
     subject: "Hello" + reg.lastname, // Subject line
     text: "Below is your username and password\n" + reg.eaddress +"\n" + reg.password +"\n", // plain text body
