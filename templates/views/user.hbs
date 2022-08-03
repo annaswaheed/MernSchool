@@ -30,8 +30,15 @@
           <div class="card card-body">
             <button type="button" onclick="location.href='/addp';">Add Property</button>
             <br>
+            <form>
+            <input type="button" value="Download as File" onclick="createCsv();"/>
+            </form>
+            <br>
             <label for="name"><i class="fa-solid fa-magnifying-glass"></i> </label> 
             <input placeholder="Filter Property By Name" id="search" type="text" class="form-control">
+            {{!-- <form>
+              <input type="button" value="Download as File" onclick="createCsv();"/>
+            </form>         --}}
           </div>
         </div>
       </div>
@@ -128,12 +135,50 @@
 		}  
   }
 
+  function  createCsv(){
+
+    console.log("in function");
+    
+    let csvheader = "name, address, city, state, picture, video, cost, description\n"
+
+    houseAr.forEach((House) => {
+
+      let row = House.name + "," + House.address + "," + House.city + "," + House.state
+       + "," + House.picture + "," + House.video + "," + House.cost+ "," +House.description + "\n";
+
+      csvheader += row;
+    });
+    console.log(csvheader);
+
+    var csvcontent = new Blob([csvheader], {type: "text/csv"});
+
+    savefile(csvcontent, UserJson.lastname + "properties.csv")
+
+  }
+
+
+  function savefile(content, filename){
+    const url = window.URL.createObjectURL(content);
+    const a = document.createElement('a');
+    document.body.appendChild(a);
+    a.href=url;
+    a.download = filename;
+    a.click();
+
+  }
+
+
+
+
+
+
+
+
+
 
   for (var i = 0; i < houseAr.length; i++){
   $(`#delete-${houseAr[i]._id}`).on('click', deleteTest)
   }
-
-
 
 
 	function deleteTest(){
